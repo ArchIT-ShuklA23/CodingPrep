@@ -5,6 +5,2894 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA Array & String Problems Hub</title>
     <style>
+        :root {
+            --primary-color: #6e48aa;
+            --secondary-color: #9d50bb;
+            --high-priority-color: #ff6b6b;
+            --medium-priority-color: #f7931e;
+            --low-priority-color: #4ecdc4;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-gray: #f5f7fa;
+            --dark-gray: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            position: relative;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            min-width: 200px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .progress-container {
+            margin-top: 1rem;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .progress-bar.high {
+            background: var(--high-priority-color);
+        }
+
+        .progress-bar.medium {
+            background: var(--medium-priority-color);
+        }
+
+        .progress-bar.low {
+            background: var(--low-priority-color);
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            color: #7f8c8d;
+        }
+
+        .search-and-filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(110, 72, 170, 0.2);
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        select {
+            padding: 0.6rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .reset-btn {
+            padding: 0.6rem 1.2rem;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            align-self: flex-end;
+        }
+
+        .reset-btn:hover {
+            background: #c0392b;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            flex-wrap: wrap;
+            background: white;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #555;
+            transition: var(--transition);
+        }
+
+        .nav-tab:hover {
+            background: #f0f0f0;
+        }
+
+        .nav-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .topic-section {
+            margin-bottom: 3rem;
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .topic-title {
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topic-title .count {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .topic-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .topic-progress-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+
+        .problem-card.high-priority {
+            border-left: 4px solid var(--high-priority-color);
+        }
+
+        .problem-card.medium-priority {
+            border-left: 4px solid var(--medium-priority-color);
+        }
+
+        .problem-card.low-priority {
+            border-left: 4px solid var(--low-priority-color);
+        }
+
+        .problem-card.completed {
+            opacity: 0.7;
+            background: #f8f9fa;
+        }
+
+        .problem-card.completed::after {
+            content: "✓";
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+        }
+
+        .problem-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            flex: 1;
+        }
+
+        .problem-meta {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            color: #666;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .difficulty {
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: capitalize;
+        }
+
+        .difficulty.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .source-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .source-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .priority-badge {
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .priority-badge.high {
+            background: var(--high-priority-color);
+            color: white;
+        }
+
+        .priority-badge.medium {
+            background: var(--medium-priority-color);
+            color: white;
+        }
+
+        .priority-badge.low {
+            background: var(--low-priority-color);
+            color: white;
+        }
+
+        .problem-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: var(--dark-gray);
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+        }
+
+        .solution-toggle {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .solution-toggle:hover {
+            background: #bbdefb;
+        }
+
+        .solution-content {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+            overflow-x: auto;
+        }
+
+        .solution-content.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Consolas', monospace;
+        }
+
+        .completion-checkbox {
+            margin-right: 0.5rem;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .completion-checkbox:checked {
+            accent-color: var(--success-color);
+        }
+
+        .patterns-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pattern-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .pattern-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .pattern-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pattern-card .count {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pattern-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-problems {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .problems-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                width: 100%;
+                text-align: center;
+            }
+
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat-card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dark-gray);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--success-color);
+        }
+
+        .toast.error {
+            background: var(--danger-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚀 DSA Array & String Problems Hub</h1>
+        <p class="subtitle">Master Array and String Problems from Blind 75, NeetCode 150, and Top Interview 150</p>
+    </header>
+    
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="total-problems">0</div>
+                <div class="stat-label">Total Problems</div>
+                <div class="progress-container">
+                    <div class="progress-bar high" id="total-progress" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="total-completed">0</span> / <span id="total-all">0</span> completed
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="array-problems">0</div>
+                <div class="stat-label">Array Problems</div>
+                <div class="progress-container">
+                    <div class="progress-bar medium" id="array-progress" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="array-completed">0</span> / <span id="array-all">0</span> completed
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="string-problems">0</div>
+                <div class="stat-label">String Problems</div>
+                <div class="progress-container">
+                    <div class="progress-bar low" id="string-progress" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="string-completed">0</span> / <span id="string-all">0</span> completed
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="high-priority-problems">0</div>
+                <div class="stat-label">High Priority (All 3 Lists)</div>
+                <div class="progress-container">
+                    <div class="progress-bar high" id="high-priority-progress" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="high-priority-completed">0</span> / <span id="high-priority-all">0</span> completed
+                </div>
+            </div>
+        </div>
+        
+        <div class="search-and-filters">
+            <input type="text" class="search-box" id="search" placeholder="🔍 Search problems by name...">
+            
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label for="difficulty-filter">Difficulty</label>
+                    <select id="difficulty-filter">
+                        <option value="">All Difficulties</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="topic-filter">Topic</label>
+                    <select id="topic-filter">
+                        <option value="">All Topics</option>
+                        <option value="array">Array</option>
+                        <option value="string">String</option>
+                        <option value="two-pointers">Two Pointers</option>
+                        <option value="sliding-window">Sliding Window</option>
+                        <option value="prefix-sum">Prefix Sum</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="source-filter">Source</label>
+                    <select id="source-filter">
+                        <option value="">All Sources</option>
+                        <option value="blind75">Blind 75</option>
+                        <option value="neetcode150">NeetCode 150</option>
+                        <option value="top-interview-150">Top Interview 150</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="priority-filter-select">Priority</label>
+                    <select id="priority-filter-select">
+                        <option value="">All</option>
+                        <option value="high">High (All 3 Lists)</option>
+                        <option value="medium">Medium (2 Lists)</option>
+                        <option value="low">Low (1 List)</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="completion-filter">Completion</label>
+                    <select id="completion-filter">
+                        <option value="">All</option>
+                        <option value="completed">Completed</option>
+                        <option value="incomplete">Incomplete</option>
+                    </select>
+                </div>
+                
+                <button class="reset-btn" onclick="resetFilters()">Reset Filters</button>
+            </div>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('all')">All Problems</button>
+            <button class="nav-tab" onclick="showTab('array')">Array Only</button>
+            <button class="nav-tab" onclick="showTab('string')">String Only</button>
+            <button class="nav-tab" onclick="showTab('patterns')">By Patterns</button>
+        </div>
+        
+        <div id="all" class="tab-content active">
+            <div id="all-problems"></div>
+        </div>
+        
+        <div id="array" class="tab-content">
+            <div id="array-problems"></div>
+        </div>
+        
+        <div id="string" class="tab-content">
+            <div id="string-problems"></div>
+        </div>
+        
+        <div id="patterns" class="tab-content">
+            <div id="patterns-problems"></div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+    
+    <script>
+        // Data for all problems
+        const allProblems = [
+            // Blind 75 Array Problems
+            {
+                id: 1,
+                title: "Two Sum",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "hash-table",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/two-sum/",
+                solution: `def twoSum(nums, target):
+    seen = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    return []`
+            },
+            {
+                id: 2,
+                title: "Best Time to Buy and Sell Stock",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+                solution: `def maxProfit(prices):
+    min_price = float('inf')
+    max_profit = 0
+    for price in prices:
+        if price < min_price:
+            min_price = price
+        elif price - min_price > max_profit:
+            max_profit = price - min_price
+    return max_profit`
+            },
+            {
+                id: 3,
+                title: "Contains Duplicate",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "hash-table",
+                source: ["blind75", "neetcode150"],
+                leetcode: "https://leetcode.com/problems/contains-duplicate/",
+                solution: `def containsDuplicate(nums):
+    seen = set()
+    for num in nums:
+        if num in seen:
+            return True
+        seen.add(num)
+    return False`
+            },
+            {
+                id: 4,
+                title: "Product of Array Except Self",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "prefix-sum",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/product-of-array-except-self/",
+                solution: `def productExceptSelf(nums):
+    n = len(nums)
+    result = [1] * n
+    
+    # Left pass
+    left = 1
+    for i in range(n):
+        result[i] = left
+        left *= nums[i]
+    
+    # Right pass
+    right = 1
+    for i in range(n-1, -1, -1):
+        result[i] *= right
+        right *= nums[i]
+    
+    return result`
+            },
+            {
+                id: 5,
+                title: "Maximum Subarray",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "kadane-algorithm",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/maximum-subarray/",
+                solution: `def maxSubArray(nums):
+    max_current = max_global = nums[0]
+    for num in nums[1:]:
+        max_current = max(num, max_current + num)
+        max_global = max(max_global, max_current)
+    return max_global`
+            },
+            {
+                id: 6,
+                title: "Maximum Product Subarray",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "dynamic-programming",
+                source: ["blind75", "neetcode150"],
+                leetcode: "https://leetcode.com/problems/maximum-product-subarray/",
+                solution: `def maxProduct(nums):
+    if not nums:
+        return 0
+    
+    max_so_far = min_so_far = result = nums[0]
+    
+    for num in nums[1:]:
+        temp = max_so_far
+        max_so_far = max(num, max_so_far * num, min_so_far * num)
+        min_so_far = min(num, temp * num, min_so_far * num)
+        result = max(result, max_so_far)
+    
+    return result`
+            },
+            {
+                id: 7,
+                title: "Find Minimum in Rotated Sorted Array",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "binary-search",
+                source: ["blind75", "neetcode150"],
+                leetcode: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+                solution: `def findMin(nums):
+    left, right = 0, len(nums) - 1
+    
+    while left < right:
+        mid = (left + right) // 2
+        if nums[mid] > nums[right]:
+            left = mid + 1
+        else:
+            right = mid
+    
+    return nums[left]`
+            },
+            {
+                id: 8,
+                title: "Search in Rotated Sorted Array",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "binary-search",
+                source: ["blind75", "neetcode150"],
+                leetcode: "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+                solution: `def search(nums, target):
+    left, right = 0, len(nums) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        
+        if nums[left] <= nums[mid]:
+            if nums[left] <= target < nums[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            if nums[mid] < target <= nums[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1`
+            },
+            {
+                id: 9,
+                title: "3Sum",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/3sum/",
+                solution: `def threeSum(nums):
+    nums.sort()
+    result = []
+    
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        
+        left, right = i + 1, len(nums) - 1
+        while left < right:
+            total = nums[i] + nums[left] + nums[right]
+            if total < 0:
+                left += 1
+            elif total > 0:
+                right -= 1
+            else:
+                result.append([nums[i], nums[left], nums[right]])
+                while left < right and nums[left] == nums[left + 1]:
+                    left += 1
+                while left < right and nums[right] == nums[right - 1]:
+                    right -= 1
+                left += 1
+                right -= 1
+    
+    return result`
+            },
+            {
+                id: 10,
+                title: "Container With Most Water",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/container-with-most-water/",
+                solution: `def maxArea(height):
+    left, right = 0, len(height) - 1
+    max_water = 0
+    
+    while left < right:
+        current_water = min(height[left], height[right]) * (right - left)
+        max_water = max(max_water, current_water)
+        
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+    
+    return max_water`
+            },
+            {
+                id: 11,
+                title: "Merge Intervals",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "sorting",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/merge-intervals/",
+                solution: `def merge(intervals):
+    if not intervals:
+        return []
+    
+    intervals.sort(key=lambda x: x[0])
+    merged = [intervals[0]]
+    
+    for current in intervals[1:]:
+        last = merged[-1]
+        if current[0] <= last[1]:
+            last[1] = max(last[1], current[1])
+        else:
+            merged.append(current)
+    
+    return merged`
+            },
+            {
+                id: 12,
+                title: "Insert Interval",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "sorting",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/insert-interval/",
+                solution: `def insert(intervals, newInterval):
+    merged = []
+    i = 0
+    n = len(intervals)
+    
+    while i < n and intervals[i][1] < newInterval[0]:
+        merged.append(intervals[i])
+        i += 1
+    
+    while i < n and intervals[i][0] <= newInterval[1]:
+        newInterval[0] = min(newInterval[0], intervals[i][0])
+        newInterval[1] = max(newInterval[1], intervals[i][1])
+        i += 1
+    merged.append(newInterval)
+    
+    while i < n:
+        merged.append(intervals[i])
+        i += 1
+    
+    return merged`
+            },
+            {
+                id: 13,
+                title: "Non-overlapping Intervals",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["blind75", "neetcode150"],
+                leetcode: "https://leetcode.com/problems/non-overlapping-intervals/",
+                solution: `def eraseOverlapIntervals(intervals):
+    if not intervals:
+        return 0
+    
+    intervals.sort(key=lambda x: x[1])
+    count = 0
+    end = intervals[0][1]
+    
+    for i in range(1, len(intervals)):
+        if intervals[i][0] < end:
+            count += 1
+        else:
+            end = intervals[i][1]
+    
+    return count`
+            },
+            {
+                id: 14,
+                title: "Meeting Rooms II",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "heap",
+                source: ["blind75", "neetcode150"],
+                leetcode: "https://leetcode.com/problems/meeting-rooms-ii/",
+                solution: `import heapq
+
+def minMeetingRooms(intervals):
+    if not intervals:
+        return 0
+    
+    intervals.sort(key=lambda x: x[0])
+    heap = [intervals[0][1]]
+    
+    for interval in intervals[1:]:
+        if interval[0] >= heap[0]:
+            heapq.heappop(heap)
+        heapq.heappush(heap, interval[1])
+    
+    return len(heap)`
+            },
+            {
+                id: 15,
+                title: "Rotate Image",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "matrix",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/rotate-image/",
+                solution: `def rotate(matrix):
+    n = len(matrix)
+    
+    for i in range(n):
+        for j in range(i, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    
+    for i in range(n):
+        matrix[i].reverse()`
+            },
+            {
+                id: 16,
+                title: "Group Anagrams",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "hash-table",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/group-anagrams/",
+                solution: `from collections import defaultdict
+
+def groupAnagrams(strs):
+    anagrams = defaultdict(list)
+    
+    for s in strs:
+        key = ''.join(sorted(s))
+        anagrams[key].append(s)
+    
+    return list(anagrams.values())`
+            },
+            {
+                id: 17,
+                title: "Valid Anagram",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "hash-table",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/valid-anagram/",
+                solution: `from collections import Counter
+
+def isAnagram(s, t):
+    return Counter(s) == Counter(t)`
+            },
+            {
+                id: 18,
+                title: "Longest Palindrome",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "dynamic-programming",
+                source: ["blind75"],
+                leetcode: "https://leetcode.com/problems/longest-palindrome/",
+                solution: `from collections import Counter
+
+def longestPalindrome(s):
+    char_counts = Counter(s)
+    length = 0
+    odd_found = False
+    
+    for count in char_counts.values():
+        if count % 2 == 0:
+            length += count
+        else:
+            length += count - 1
+            odd_found = True
+    
+    return length + 1 if odd_found else length`
+            },
+            {
+                id: 19,
+                title: "Palindromic Substrings",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "dynamic-programming",
+                source: ["blind75"],
+                leetcode: "https://leetcode.com/problems/palindromic-substrings/",
+                solution: `def countSubstrings(s):
+    n = len(s)
+    count = 0
+    dp = [[False] * n for _ in range(n)]
+    
+    for i in range(n-1, -1, -1):
+        for j in range(i, n):
+            if s[i] == s[j] and (j - i <= 2 or dp[i+1][j-1]):
+                dp[i][j] = True
+                count += 1
+    
+    return count`
+            },
+            {
+                id: 20,
+                title: "Longest Palindromic Substring",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "dynamic-programming",
+                source: ["blind75", "neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/longest-palindromic-substring/",
+                solution: `def longestPalindrome(s):
+    if not s:
+        return ""
+    
+    start = 0
+    end = 0
+    
+    for i in range(len(s)):
+        len1 = expandAroundCenter(s, i, i)
+        len2 = expandAroundCenter(s, i, i + 1)
+        max_len = max(len1, len2)
+        if max_len > end - start:
+            start = i - (max_len - 1) // 2
+            end = i + max_len // 2
+    
+    return s[start:end+1]
+
+def expandAroundCenter(s, left, right):
+    while left >= 0 and right < len(s) and s[left] == s[right]:
+        left -= 1
+        right += 1
+    return right - left - 1`
+            },
+            {
+                id: 21,
+                title: "Merge Sorted Array",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/merge-sorted-array/",
+                solution: `def merge(nums1, m, nums2, n):
+    i = m - 1
+    j = n - 1
+    k = m + n - 1
+    
+    while i >= 0 and j >= 0:
+        if nums1[i] > nums2[j]:
+            nums1[k] = nums1[i]
+            i -= 1
+        else:
+            nums1[k] = nums2[j]
+            j -= 1
+        k -= 1
+    
+    while j >= 0:
+        nums1[k] = nums2[j]
+        j -= 1
+        k -= 1`
+            },
+            {
+                id: 22,
+                title: "Remove Element",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/remove-element/",
+                solution: `def removeElement(nums, val):
+    k = 0
+    for i in range(len(nums)):
+        if nums[i] != val:
+            nums[k] = nums[i]
+            k += 1
+    return k`
+            },
+            {
+                id: 23,
+                title: "Remove Duplicates from Sorted Array",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+                solution: `def removeDuplicates(nums):
+    if not nums:
+        return 0
+    
+    k = 1
+    for i in range(1, len(nums)):
+        if nums[i] != nums[i-1]:
+            nums[k] = nums[i]
+            k += 1
+    return k`
+            },
+            {
+                id: 24,
+                title: "Majority Element",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "boyer-moore",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/majority-element/",
+                solution: `def majorityElement(nums):
+    count = 0
+    candidate = None
+    
+    for num in nums:
+        if count == 0:
+            candidate = num
+        count += (1 if num == candidate else -1)
+    
+    return candidate`
+            },
+            {
+                id: 25,
+                title: "Rotate Array",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "array-manipulation",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/rotate-array/",
+                solution: `def rotate(nums, k):
+    n = len(nums)
+    k = k % n
+    
+    nums.reverse()
+    nums[:k] = reversed(nums[:k])
+    nums[k:] = reversed(nums[k:])`
+            },
+            {
+                id: 26,
+                title: "Best Time to Buy and Sell Stock II",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
+                solution: `def maxProfit(prices):
+    max_profit = 0
+    for i in range(1, len(prices)):
+        if prices[i] > prices[i-1]:
+            max_profit += prices[i] - prices[i-1]
+    return max_profit`
+            },
+            {
+                id: 27,
+                title: "Jump Game",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/jump-game/",
+                solution: `def canJump(nums):
+    max_reach = 0
+    for i, num in enumerate(nums):
+        if i > max_reach:
+            return False
+        max_reach = max(max_reach, i + num)
+    return True`
+            },
+            {
+                id: 28,
+                title: "Jump Game II",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/jump-game-ii/",
+                solution: `def jump(nums):
+    jumps = 0
+    current_end = 0
+    farthest = 0
+    
+    for i in range(len(nums) - 1):
+        farthest = max(farthest, i + nums[i])
+        if i == current_end:
+            jumps += 1
+            current_end = farthest
+    
+    return jumps`
+            },
+            {
+                id: 29,
+                title: "H-Index",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "sorting",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/h-index/",
+                solution: `def hIndex(citations):
+    citations.sort(reverse=True)
+    h = 0
+    for i, citation in enumerate(citations):
+        if citation >= i + 1:
+            h = i + 1
+        else:
+            break
+    return h`
+            },
+            {
+                id: 30,
+                title: "Insert Delete GetRandom O(1)",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "hash-table",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/insert-delete-getrandom-o1/",
+                solution: `import random
+
+class RandomizedSet:
+    def __init__(self):
+        self.val_to_index = {}
+        self.values = []
+
+    def insert(self, val):
+        if val in self.val_to_index:
+            return False
+        self.val_to_index[val] = len(self.values)
+        self.values.append(val)
+        return True
+
+    def remove(self, val):
+        if val not in self.val_to_index:
+            return False
+        last_val = self.values[-1]
+        idx = self.val_to_index[val]
+        self.values[idx] = last_val
+        self.val_to_index[last_val] = idx
+        self.values.pop()
+        del self.val_to_index[val]
+        return True
+
+    def getRandom(self):
+        return random.choice(self.values)`
+            },
+            {
+                id: 31,
+                title: "Gas Station",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/gas-station/",
+                solution: `def canCompleteCircuit(gas, cost):
+    if sum(gas) < sum(cost):
+        return -1
+    
+    total = 0
+    start = 0
+    tank = 0
+    
+    for i in range(len(gas)):
+        tank += gas[i] - cost[i]
+        if tank < 0:
+            start = i + 1
+            total += tank
+            tank = 0
+    
+    return start`
+            },
+            {
+                id: 32,
+                title: "Candy",
+                difficulty: "hard",
+                topic: "array",
+                pattern: "greedy",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/candy/",
+                solution: `def candy(ratings):
+    n = len(ratings)
+    candies = [1] * n
+    
+    for i in range(1, n):
+        if ratings[i] > ratings[i-1]:
+            candies[i] = candies[i-1] + 1
+    
+    for i in range(n-2, -1, -1):
+        if ratings[i] > ratings[i+1]:
+            candies[i] = max(candies[i], candies[i+1] + 1)
+    
+    return sum(candies)`
+            },
+            {
+                id: 33,
+                title: "Trapping Rain Water",
+                difficulty: "hard",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/trapping-rain-water/",
+                solution: `def trap(height):
+    if not height:
+        return 0
+    
+    left, right = 0, len(height) - 1
+    left_max, right_max = height[left], height[right]
+    water = 0
+    
+    while left < right:
+        if left_max < right_max:
+            left += 1
+            left_max = max(left_max, height[left])
+            water += left_max - height[left]
+        else:
+            right -= 1
+            right_max = max(right_max, height[right])
+            water += right_max - height[right]
+    
+    return water`
+            },
+            {
+                id: 34,
+                title: "Roman to Integer",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "math",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/roman-to-integer/",
+                solution: `def romanToInt(s):
+    roman_map = {
+        'I': 1, 'V': 5, 'X': 10, 'L': 50,
+        'C': 100, 'D': 500, 'M': 1000
+    }
+    total = 0
+    prev_value = 0
+    
+    for char in reversed(s):
+        value = roman_map[char]
+        if value < prev_value:
+            total -= value
+        else:
+            total += value
+        prev_value = value
+    
+    return total`
+            },
+            {
+                id: 35,
+                title: "Integer to Roman",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "math",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/integer-to-roman/",
+                solution: `def intToRoman(num):
+    val_symbols = [
+        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+        (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),
+        (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')
+    ]
+    roman = []
+    for val, symbol in val_symbols:
+        while num >= val:
+            roman.append(symbol)
+            num -= val
+    return ''.join(roman)`
+            },
+            {
+                id: 36,
+                title: "Length of Last Word",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/length-of-last-word/",
+                solution: `def lengthOfLastWord(s):
+    length = 0
+    for char in reversed(s):
+        if char != ' ':
+            length += 1
+        elif length > 0:
+            break
+    return length`
+            },
+            {
+                id: 37,
+                title: "Longest Common Prefix",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/longest-common-prefix/",
+                solution: `def longestCommonPrefix(strs):
+    if not strs:
+        return ""
+    
+    prefix = strs[0]
+    for s in strs[1:]:
+        while s[:len(prefix)] != prefix:
+            prefix = prefix[:-1]
+            if not prefix:
+                return ""
+    return prefix`
+            },
+            {
+                id: 38,
+                title: "Reverse Words in a String",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/reverse-words-in-a-string/",
+                solution: `def reverseWords(s):
+    return ' '.join(reversed(s.split()))`
+            },
+            {
+                id: 39,
+                title: "Zigzag Conversion",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/zigzag-conversion/",
+                solution: `def convert(s, numRows):
+    if numRows == 1:
+        return s
+    
+    rows = [''] * numRows
+    current_row = 0
+    going_down = False
+    
+    for char in s:
+        rows[current_row] += char
+        if current_row == 0 or current_row == numRows - 1:
+            going_down = not going_down
+        current_row += 1 if going_down else -1
+    
+    return ''.join(rows)`
+            },
+            {
+                id: 40,
+                title: "Find the Index of the First Occurrence in a String",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "string-matching",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/",
+                solution: `def strStr(haystack, needle):
+    if not needle:
+        return 0
+    
+    for i in range(len(haystack) - len(needle) + 1):
+        if haystack[i:i+len(needle)] == needle:
+            return i
+    return -1`
+            },
+            {
+                id: 41,
+                title: "Text Justification",
+                difficulty: "hard",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["neetcode150", "top-interview-150"],
+                leetcode: "https://leetcode.com/problems/text-justification/",
+                solution: `def fullJustify(words, maxWidth):
+    result = []
+    line = []
+    line_length = 0
+    
+    for word in words:
+        if line_length + len(line) + len(word) <= maxWidth:
+            line.append(word)
+            line_length += len(word)
+        else:
+            spaces = maxWidth - line_length
+            if len(line) == 1:
+                result.append(line[0] + ' ' * spaces)
+            else:
+                space_between = spaces // (len(line) - 1)
+                extra_spaces = spaces % (len(line) - 1)
+                line_str = ''
+                for i in range(len(line) - 1):
+                    line_str += line[i] + ' ' * space_between
+                    if i < extra_spaces:
+                        line_str += ' '
+                line_str += line[-1]
+                result.append(line_str)
+            line = [word]
+            line_length = len(word)
+    
+    last_line = ' '.join(line)
+    last_line += ' ' * (maxWidth - len(last_line))
+    result.append(last_line)
+    
+    return result`
+            },
+            {
+                id: 42,
+                title: "Remove Duplicates from Sorted Array II",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/",
+                solution: `def removeDuplicates(nums):
+    if len(nums) <= 2:
+        return len(nums)
+    
+    k = 2
+    for i in range(2, len(nums)):
+        if nums[i] != nums[k-2]:
+            nums[k] = nums[i]
+            k += 1
+    return k`
+            },
+            {
+                id: 43,
+                title: "Majority Element",
+                difficulty: "easy",
+                topic: "array",
+                pattern: "boyer-moore",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/majority-element/",
+                solution: `def majorityElement(nums):
+    count = 0
+    candidate = None
+    
+    for num in nums:
+        if count == 0:
+            candidate = num
+        count += (1 if num == candidate else -1)
+    
+    return candidate`
+            },
+            {
+                id: 44,
+                title: "Rotate Array",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "array-manipulation",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/rotate-array/",
+                solution: `def rotate(nums, k):
+    n = len(nums)
+    k = k % n
+    
+    nums.reverse()
+    nums[:k] = reversed(nums[:k])
+    nums[k:] = reversed(nums[k:])`
+            },
+            {
+                id: 45,
+                title: "Best Time to Buy and Sell Stock II",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
+                solution: `def maxProfit(prices):
+    max_profit = 0
+    for i in range(1, len(prices)):
+        if prices[i] > prices[i-1]:
+            max_profit += prices[i] - prices[i-1]
+    return max_profit`
+            },
+            {
+                id: 46,
+                title: "Jump Game",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/jump-game/",
+                solution: `def canJump(nums):
+    max_reach = 0
+    for i, num in enumerate(nums):
+        if i > max_reach:
+            return False
+        max_reach = max(max_reach, i + num)
+    return True`
+            },
+            {
+                id: 47,
+                title: "Jump Game II",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/jump-game-ii/",
+                solution: `def jump(nums):
+    jumps = 0
+    current_end = 0
+    farthest = 0
+    
+    for i in range(len(nums) - 1):
+        farthest = max(farthest, i + nums[i])
+        if i == current_end:
+            jumps += 1
+            current_end = farthest
+    
+    return jumps`
+            },
+            {
+                id: 48,
+                title: "H-Index",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "sorting",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/h-index/",
+                solution: `def hIndex(citations):
+    citations.sort(reverse=True)
+    h = 0
+    for i, citation in enumerate(citations):
+        if citation >= i + 1:
+            h = i + 1
+        else:
+            break
+    return h`
+            },
+            {
+                id: 49,
+                title: "Insert Delete GetRandom O(1)",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "hash-table",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/insert-delete-getrandom-o1/",
+                solution: `import random
+
+class RandomizedSet:
+    def __init__(self):
+        self.val_to_index = {}
+        self.values = []
+
+    def insert(self, val):
+        if val in self.val_to_index:
+            return False
+        self.val_to_index[val] = len(self.values)
+        self.values.append(val)
+        return True
+
+    def remove(self, val):
+        if val not in self.val_to_index:
+            return False
+        last_val = self.values[-1]
+        idx = self.val_to_index[val]
+        self.values[idx] = last_val
+        self.val_to_index[last_val] = idx
+        self.values.pop()
+        del self.val_to_index[val]
+        return True
+
+    def getRandom(self):
+        return random.choice(self.values)`
+            },
+            {
+                id: 50,
+                title: "Product of Array Except Self",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "prefix-sum",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/product-of-array-except-self/",
+                solution: `def productExceptSelf(nums):
+    n = len(nums)
+    result = [1] * n
+    
+    left = 1
+    for i in range(n):
+        result[i] = left
+        left *= nums[i]
+    
+    right = 1
+    for i in range(n-1, -1, -1):
+        result[i] *= right
+        right *= nums[i]
+    
+    return result`
+            },
+            {
+                id: 51,
+                title: "Gas Station",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "greedy",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/gas-station/",
+                solution: `def canCompleteCircuit(gas, cost):
+    if sum(gas) < sum(cost):
+        return -1
+    
+    total = 0
+    start = 0
+    tank = 0
+    
+    for i in range(len(gas)):
+        tank += gas[i] - cost[i]
+        if tank < 0:
+            start = i + 1
+            total += tank
+            tank = 0
+    
+    return start`
+            },
+            {
+                id: 52,
+                title: "Candy",
+                difficulty: "hard",
+                topic: "array",
+                pattern: "greedy",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/candy/",
+                solution: `def candy(ratings):
+    n = len(ratings)
+    candies = [1] * n
+    
+    for i in range(1, n):
+        if ratings[i] > ratings[i-1]:
+            candies[i] = candies[i-1] + 1
+    
+    for i in range(n-2, -1, -1):
+        if ratings[i] > ratings[i+1]:
+            candies[i] = max(candies[i], candies[i+1] + 1)
+    
+    return sum(candies)`
+            },
+            {
+                id: 53,
+                title: "Trapping Rain Water",
+                difficulty: "hard",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/trapping-rain-water/",
+                solution: `def trap(height):
+    if not height:
+        return 0
+    
+    left, right = 0, len(height) - 1
+    left_max, right_max = height[left], height[right]
+    water = 0
+    
+    while left < right:
+        if left_max < right_max:
+            left += 1
+            left_max = max(left_max, height[left])
+            water += left_max - height[left]
+        else:
+            right -= 1
+            right_max = max(right_max, height[right])
+            water += right_max - height[right]
+    
+    return water`
+            },
+            {
+                id: 54,
+                title: "Roman to Integer",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "math",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/roman-to-integer/",
+                solution: `def romanToInt(s):
+    roman_map = {
+        'I': 1, 'V': 5, 'X': 10, 'L': 50,
+        'C': 100, 'D': 500, 'M': 1000
+    }
+    total = 0
+    prev_value = 0
+    
+    for char in reversed(s):
+        value = roman_map[char]
+        if value < prev_value:
+            total -= value
+        else:
+            total += value
+        prev_value = value
+    
+    return total`
+            },
+            {
+                id: 55,
+                title: "Integer to Roman",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "math",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/integer-to-roman/",
+                solution: `def intToRoman(num):
+    val_symbols = [
+        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+        (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),
+        (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')
+    ]
+    roman = []
+    for val, symbol in val_symbols:
+        while num >= val:
+            roman.append(symbol)
+            num -= val
+    return ''.join(roman)`
+            },
+            {
+                id: 56,
+                title: "Length of Last Word",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/length-of-last-word/",
+                solution: `def lengthOfLastWord(s):
+    length = 0
+    for char in reversed(s):
+        if char != ' ':
+            length += 1
+        elif length > 0:
+            break
+    return length`
+            },
+            {
+                id: 57,
+                title: "Longest Common Prefix",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/longest-common-prefix/",
+                solution: `def longestCommonPrefix(strs):
+    if not strs:
+        return ""
+    
+    prefix = strs[0]
+    for s in strs[1:]:
+        while s[:len(prefix)] != prefix:
+            prefix = prefix[:-1]
+            if not prefix:
+                return ""
+    return prefix`
+            },
+            {
+                id: 58,
+                title: "Reverse Words in a String",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/reverse-words-in-a-string/",
+                solution: `def reverseWords(s):
+    return ' '.join(reversed(s.split()))`
+            },
+            {
+                id: 59,
+                title: "Zigzag Conversion",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/zigzag-conversion/",
+                solution: `def convert(s, numRows):
+    if numRows == 1:
+        return s
+    
+    rows = [''] * numRows
+    current_row = 0
+    going_down = False
+    
+    for char in s:
+        rows[current_row] += char
+        if current_row == 0 or current_row == numRows - 1:
+            going_down = not going_down
+        current_row += 1 if going_down else -1
+    
+    return ''.join(rows)`
+            },
+            {
+                id: 60,
+                title: "Find the Index of the First Occurrence in a String",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "string-matching",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/",
+                solution: `def strStr(haystack, needle):
+    if not needle:
+        return 0
+    
+    for i in range(len(haystack) - len(needle) + 1):
+        if haystack[i:i+len(needle)] == needle:
+            return i
+    return -1`
+            },
+            {
+                id: 61,
+                title: "Text Justification",
+                difficulty: "hard",
+                topic: "string",
+                pattern: "string-manipulation",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/text-justification/",
+                solution: `def fullJustify(words, maxWidth):
+    result = []
+    line = []
+    line_length = 0
+    
+    for word in words:
+        if line_length + len(line) + len(word) <= maxWidth:
+            line.append(word)
+            line_length += len(word)
+        else:
+            spaces = maxWidth - line_length
+            if len(line) == 1:
+                result.append(line[0] + ' ' * spaces)
+            else:
+                space_between = spaces // (len(line) - 1)
+                extra_spaces = spaces % (len(line) - 1)
+                line_str = ''
+                for i in range(len(line) - 1):
+                    line_str += line[i] + ' ' * space_between
+                    if i < extra_spaces:
+                        line_str += ' '
+                line_str += line[-1]
+                result.append(line_str)
+            line = [word]
+            line_length = len(word)
+    
+    last_line = ' '.join(line)
+    last_line += ' ' * (maxWidth - len(last_line))
+    result.append(last_line)
+    
+    return result`
+            },
+            {
+                id: 62,
+                title: "Valid Palindrome",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "two-pointers",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/valid-palindrome/",
+                solution: `def isPalindrome(s):
+    s = ''.join(c.lower() for c in s if c.isalnum())
+    return s == s[::-1]`
+            },
+            {
+                id: 63,
+                title: "Is Subsequence",
+                difficulty: "easy",
+                topic: "string",
+                pattern: "two-pointers",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/is-subsequence/",
+                solution: `def isSubsequence(s, t):
+    i = j = 0
+    while i < len(s) and j < len(t):
+        if s[i] == t[j]:
+            i += 1
+        j += 1
+    return i == len(s)`
+            },
+            {
+                id: 64,
+                title: "Two Sum II - Input Array Is Sorted",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+                solution: `def twoSum(numbers, target):
+    left, right = 0, len(numbers) - 1
+    while left < right:
+        current_sum = numbers[left] + numbers[right]
+        if current_sum == target:
+            return [left + 1, right + 1]
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
+    return [-1, -1]`
+            },
+            {
+                id: 65,
+                title: "Container With Most Water",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/container-with-most-water/",
+                solution: `def maxArea(height):
+    left, right = 0, len(height) - 1
+    max_water = 0
+    
+    while left < right:
+        current_water = min(height[left], height[right]) * (right - left)
+        max_water = max(max_water, current_water)
+        
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+    
+    return max_water`
+            },
+            {
+                id: 66,
+                title: "3Sum",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "two-pointers",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/3sum/",
+                solution: `def threeSum(nums):
+    nums.sort()
+    result = []
+    
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        
+        left, right = i + 1, len(nums) - 1
+        while left < right:
+            total = nums[i] + nums[left] + nums[right]
+            if total < 0:
+                left += 1
+            elif total > 0:
+                right -= 1
+            else:
+                result.append([nums[i], nums[left], nums[right]])
+                while left < right and nums[left] == nums[left + 1]:
+                    left += 1
+                while left < right and nums[right] == nums[right - 1]:
+                    right -= 1
+                left += 1
+                right -= 1
+    
+    return result`
+            },
+            {
+                id: 67,
+                title: "Minimum Size Subarray Sum",
+                difficulty: "medium",
+                topic: "array",
+                pattern: "sliding-window",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/minimum-size-subarray-sum/",
+                solution: `def minSubArrayLen(target, nums):
+    left = 0
+    current_sum = 0
+    min_length = float('inf')
+    
+    for right in range(len(nums)):
+        current_sum += nums[right]
+        while current_sum >= target:
+            min_length = min(min_length, right - left + 1)
+            current_sum -= nums[left]
+            left += 1
+    
+    return min_length if min_length != float('inf') else 0`
+            },
+            {
+                id: 68,
+                title: "Longest Substring Without Repeating Characters",
+                difficulty: "medium",
+                topic: "string",
+                pattern: "sliding-window",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+                solution: `def lengthOfLongestSubstring(s):
+    char_set = set()
+    left = 0
+    max_length = 0
+    
+    for right in range(len(s)):
+        while s[right] in char_set:
+            char_set.remove(s[left])
+            left += 1
+        char_set.add(s[right])
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length`
+            },
+            {
+                id: 69,
+                title: "Substring with Concatenation of All Words",
+                difficulty: "hard",
+                topic: "string",
+                pattern: "sliding-window",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/substring-with-concatenation-of-all-words/",
+                solution: `from collections import Counter
+
+def findSubstring(s, words):
+    if not words or not s:
+        return []
+    
+    word_len = len(words[0])
+    total_words = len(words)
+    total_len = word_len * total_words
+    word_count = Counter(words)
+    result = []
+    
+    for i in range(len(s) - total_len + 1):
+        seen = {}
+        j = 0
+        while j < total_words:
+            word = s[i + j * word_len:i + (j + 1) * word_len]
+            if word in word_count:
+                seen[word] = seen.get(word, 0) + 1
+                if seen[word] > word_count[word]:
+                    break
+            else:
+                break
+            j += 1
+        if j == total_words:
+            result.append(i)
+    
+    return result`
+            },
+            {
+                id: 70,
+                title: "Minimum Window Substring",
+                difficulty: "hard",
+                topic: "string",
+                pattern: "sliding-window",
+                source: ["top-interview-150"],
+                leetcode: "https://leetcode.com/problems/minimum-window-substring/",
+                solution: `from collections import Counter
+
+def minWindow(s, t):
+    if not t or not s:
+        return ""
+    
+    target_counts = Counter(t)
+    required = len(target_counts)
+    formed = 0
+    window_counts = {}
+    result = (float('inf'), None, None)
+    left = 0
+    
+    for right, char in enumerate(s):
+        window_counts[char] = window_counts.get(char, 0) + 1
+        
+        if char in target_counts and window_counts[char] == target_counts[char]:
+            formed += 1
+        
+        while left <= right and formed == required:
+            char = s[left]
+            if right - left + 1 < result[0]:
+                result = (right - left + 1, left, right)
+            
+            window_counts[char] -= 1
+            if char in target_counts and window_counts[char] < target_counts[char]:
+                formed -= 1
+            left += 1
+    
+    return s[result[1]:result[2]+1] if result[0] != float('inf') else ""`
+            }
+        ];
+
+        // Patterns for grouping
+        const patterns = {
+            'two-pointers': {
+                name: 'Two Pointers',
+                description: 'Problems that can be solved using two pointers technique',
+                problems: []
+            },
+            'sliding-window': {
+                name: 'Sliding Window',
+                description: 'Problems that use a sliding window approach',
+                problems: []
+            },
+            'prefix-sum': {
+                name: 'Prefix Sum',
+                description: 'Problems that use prefix sum technique',
+                problems: []
+            },
+            'binary-search': {
+                name: 'Binary Search',
+                description: 'Problems that use binary search',
+                problems: []
+            },
+            'greedy': {
+                name: 'Greedy',
+                description: 'Problems that use greedy approach',
+                problems: []
+            },
+            'dynamic-programming': {
+                name: 'Dynamic Programming',
+                description: 'Problems that use dynamic programming',
+                problems: []
+            },
+            'hash-table': {
+                name: 'Hash Table',
+                description: 'Problems that use hash tables or dictionaries',
+                problems: []
+            },
+            'sorting': {
+                name: 'Sorting',
+                description: 'Problems that involve sorting',
+                problems: []
+            },
+            'matrix': {
+                name: 'Matrix',
+                description: 'Problems involving 2D arrays or matrices',
+                problems: []
+            },
+            'string-manipulation': {
+                name: 'String Manipulation',
+                description: 'Problems involving string manipulation',
+                problems: []
+            },
+            'stack': {
+                name: 'Stack',
+                description: 'Problems that use stack data structure',
+                problems: []
+            },
+            'kadane-algorithm': {
+                name: 'Kadane\'s Algorithm',
+                description: 'Problems that use Kadane\'s algorithm for maximum subarray',
+                problems: []
+            },
+            'boyer-moore': {
+                name: 'Boyer-Moore Voting',
+                description: 'Problems that use Boyer-Moore voting algorithm',
+                problems: []
+            },
+            'heap': {
+                name: 'Heap',
+                description: 'Problems that use heap data structure',
+                problems: []
+            },
+            'math': {
+                name: 'Math',
+                description: 'Problems involving mathematical concepts',
+                problems: []
+            }
+        };
+
+        // Group problems by pattern
+        allProblems.forEach(problem => {
+            if (problem.pattern in patterns) {
+                patterns[problem.pattern].problems.push(problem);
+            }
+        });
+
+        // Function to get priority level of a problem
+        function getPriorityLevel(problem) {
+            const sourceCount = problem.source.length;
+            if (sourceCount === 3) {
+                return 'high';
+            } else if (sourceCount === 2) {
+                return 'medium';
+            } else {
+                return 'low';
+            }
+        }
+
+        // Function to load progress from localStorage
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('dsaProblemProgress');
+            if (savedProgress) {
+                return JSON.parse(savedProgress);
+            }
+            return {};
+        }
+
+        // Function to save progress to localStorage
+        function saveProgress(progress) {
+            localStorage.setItem('dsaProblemProgress', JSON.stringify(progress));
+        }
+
+        // Function to toggle problem completion
+        function toggleProblemCompletion(problemId, checkbox) {
+            const progress = loadProgress();
+            progress[problemId] = checkbox.checked;
+            saveProgress(progress);
+            updateStats();
+            showToast(checkbox.checked ? 'Problem marked as completed!' : 'Problem marked as incomplete.', checkbox.checked ? 'success' : 'error');
+        }
+
+        // Function to show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Function to get completion status of a problem
+        function isProblemCompleted(problemId) {
+            const progress = loadProgress();
+            return progress[problemId] || false;
+        }
+
+        // Function to render problems
+        function renderProblems(problems, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            if (problems.length === 0) {
+                container.innerHTML = '<div class="no-problems">No problems found.</div>';
+                return;
+            }
+            
+            let html = '';
+            
+            // Group by topic
+            const topics = {};
+            problems.forEach(problem => {
+                if (!topics[problem.topic]) {
+                    topics[problem.topic] = [];
+                }
+                topics[problem.topic].push(problem);
+            });
+            
+            for (const [topic, topicProblems] of Object.entries(topics)) {
+                const topicCompleted = topicProblems.filter(p => isProblemCompleted(p.id)).length;
+                const topicTotal = topicProblems.length;
+                const topicProgress = topicTotal > 0 ? Math.round((topicCompleted / topicTotal) * 100) : 0;
+                
+                html += `
+                    <div class="topic-section">
+                        <div class="topic-header">
+                            <h2 class="topic-title">
+                                ${topic.charAt(0).toUpperCase() + topic.slice(1)}
+                                <span class="count">${topicTotal}</span>
+                            </h2>
+                            <div class="topic-progress">
+                                <div class="progress-container">
+                                    <div class="progress-bar high" style="width: ${topicProgress}%"></div>
+                                </div>
+                                <div class="topic-progress-text">
+                                    ${topicCompleted}/${topicTotal} completed
+                                </div>
+                            </div>
+                        </div>
+                        <div class="problems-grid">
+                `;
+                
+                topicProblems.forEach(problem => {
+                    const priority = getPriorityLevel(problem);
+                    const isHighPriority = priority === 'high';
+                    const isMediumPriority = priority === 'medium';
+                    const isCompleted = isProblemCompleted(problem.id);
+                    const sourceTags = problem.source.map(src => `<span class="source-tag">${src}</span>`).join('');
+                    
+                    html += `
+                        <div class="problem-card ${isHighPriority ? 'high-priority' : isMediumPriority ? 'medium-priority' : 'low-priority'} ${isCompleted ? 'completed' : ''}">
+                            <div class="problem-header">
+                                <div class="problem-title">${problem.title}</div>
+                                <div class="problem-meta">
+                                    <span class="difficulty ${problem.difficulty}">${problem.difficulty}</span>
+                                    <span>• ${problem.pattern}</span>
+                                    <span class="priority-badge ${priority}">${isHighPriority ? '🔥 High' : isMediumPriority ? '🟠 Medium' : '🟢 Low'}</span>
+                                </div>
+                            </div>
+                            <div class="problem-meta">
+                                <div class="source-tags">${sourceTags}</div>
+                            </div>
+                            <div class="problem-actions">
+                                <label class="btn btn-secondary">
+                                    <input type="checkbox" class="completion-checkbox" ${isCompleted ? 'checked' : ''} 
+                                           onchange="toggleProblemCompletion(${problem.id}, this)">
+                                    <span>${isCompleted ? '✓ Completed' : 'Mark Complete'}</span>
+                                </label>
+                                <a href="${problem.leetcode}" target="_blank" class="btn btn-primary">
+                                    🔗 LeetCode
+                                </a>
+                                <button class="btn solution-toggle" onclick="toggleSolution(${problem.id}, this)">
+                                    👁️ Show Solution
+                                </button>
+                            </div>
+                            <div class="solution-content" id="solution-${problem.id}">
+                                <pre><code>${escapeHtml(problem.solution)}</code></pre>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // Function to render patterns
+        function renderPatterns() {
+            const container = document.getElementById('patterns-problems');
+            if (!container) return;
+            
+            let html = '';
+            
+            for (const [patternId, pattern] of Object.entries(patterns)) {
+                if (pattern.problems.length > 0) {
+                    const patternCompleted = pattern.problems.filter(p => isProblemCompleted(p.id)).length;
+                    const patternTotal = pattern.problems.length;
+                    const patternProgress = patternTotal > 0 ? Math.round((patternCompleted / patternTotal) * 100) : 0;
+                    
+                    html += `
+                        <div class="pattern-card">
+                            <h3>
+                                ${pattern.name}
+                                <span class="count">${patternTotal}</span>
+                            </h3>
+                            <p class="pattern-description">${pattern.description}</p>
+                            <div class="progress-container">
+                                <div class="progress-bar medium" style="width: ${patternProgress}%"></div>
+                            </div>
+                            <div class="topic-progress-text">
+                                ${patternCompleted}/${patternTotal} completed
+                            </div>
+                            <div class="problems-grid">
+                    `;
+                    
+                    pattern.problems.forEach(problem => {
+                        const priority = getPriorityLevel(problem);
+                        const isHighPriority = priority === 'high';
+                        const isMediumPriority = priority === 'medium';
+                        const isCompleted = isProblemCompleted(problem.id);
+                        const sourceTags = problem.source.map(src => `<span class="source-tag">${src}</span>`).join('');
+                        
+                        html += `
+                            <div class="problem-card ${isHighPriority ? 'high-priority' : isMediumPriority ? 'medium-priority' : 'low-priority'} ${isCompleted ? 'completed' : ''}">
+                                <div class="problem-header">
+                                    <div class="problem-title">${problem.title}</div>
+                                    <div class="problem-meta">
+                                        <span class="difficulty ${problem.difficulty}">${problem.difficulty}</span>
+                                        <span>• ${problem.topic}</span>
+                                        <span class="priority-badge ${priority}">${isHighPriority ? '🔥 High' : isMediumPriority ? '🟠 Medium' : '🟢 Low'}</span>
+                                    </div>
+                                </div>
+                                <div class="problem-meta">
+                                    <div class="source-tags">${sourceTags}</div>
+                                </div>
+                                <div class="problem-actions">
+                                    <label class="btn btn-secondary">
+                                        <input type="checkbox" class="completion-checkbox" ${isCompleted ? 'checked' : ''} 
+                                               onchange="toggleProblemCompletion(${problem.id}, this)">
+                                        <span>${isCompleted ? '✓ Completed' : 'Mark Complete'}</span>
+                                    </label>
+                                    <a href="${problem.leetcode}" target="_blank" class="btn btn-primary">
+                                        🔗 LeetCode
+                                    </a>
+                                    <button class="btn solution-toggle" onclick="toggleSolution(${problem.id}, this)">
+                                        👁️ Show Solution
+                                    </button>
+                                </div>
+                                <div class="solution-content" id="solution-${problem.id}">
+                                    <pre><code>${escapeHtml(problem.solution)}</code></pre>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // Function to toggle solution visibility
+        function toggleSolution(problemId, button) {
+            const solution = document.getElementById(`solution-${problemId}`);
+            if (solution.classList.contains('active')) {
+                solution.classList.remove('active');
+                button.textContent = '👁️ Show Solution';
+            } else {
+                solution.classList.add('active');
+                button.textContent = '👁️ Hide Solution';
+            }
+        }
+
+        // Function to escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Function to show tab
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Render content based on tab
+            if (tabName === 'all') {
+                renderProblems(allProblems, 'all-problems');
+            } else if (tabName === 'array') {
+                const arrayProblems = allProblems.filter(p => p.topic === 'array');
+                renderProblems(arrayProblems, 'array-problems');
+            } else if (tabName === 'string') {
+                const stringProblems = allProblems.filter(p => p.topic === 'string');
+                renderProblems(stringProblems, 'string-problems');
+            } else if (tabName === 'patterns') {
+                renderPatterns();
+            }
+            
+            // Update stats
+            updateStats();
+        }
+
+        // Function to filter problems
+        function filterProblems() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const difficulty = document.getElementById('difficulty-filter').value;
+            const topic = document.getElementById('topic-filter').value;
+            const source = document.getElementById('source-filter').value;
+            const priority = document.getElementById('priority-filter-select').value;
+            const completion = document.getElementById('completion-filter').value;
+            
+            const activeTab = document.querySelector('.tab-content.active').id;
+            let problems = [];
+            
+            if (activeTab === 'all') {
+                problems = allProblems;
+            } else if (activeTab === 'array') {
+                problems = allProblems.filter(p => p.topic === 'array');
+            } else if (activeTab === 'string') {
+                problems = allProblems.filter(p => p.topic === 'string');
+            } else if (activeTab === 'patterns') {
+                renderPatterns();
+                return;
+            }
+            
+            // Apply filters
+            let filtered = problems.filter(problem => {
+                const matchesSearch = problem.title.toLowerCase().includes(searchTerm);
+                const matchesDifficulty = !difficulty || problem.difficulty === difficulty;
+                const matchesTopic = !topic || problem.topic === topic;
+                const matchesSource = !source || problem.source.includes(source);
+                
+                // Check priority
+                const problemPriority = getPriorityLevel(problem);
+                const matchesPriority = !priority || problemPriority === priority;
+                
+                // Check completion
+                const isCompleted = isProblemCompleted(problem.id);
+                const matchesCompletion = !completion || 
+                    (completion === 'completed' && isCompleted) || 
+                    (completion === 'incomplete' && !isCompleted);
+                
+                return matchesSearch && matchesDifficulty && matchesTopic && matchesSource && matchesPriority && matchesCompletion;
+            });
+            
+            // Render filtered problems
+            if (activeTab === 'all') {
+                renderProblems(filtered, 'all-problems');
+            } else if (activeTab === 'array') {
+                renderProblems(filtered, 'array-problems');
+            } else if (activeTab === 'string') {
+                renderProblems(filtered, 'string-problems');
+            }
+            
+            // Update stats
+            updateStats();
+        }
+
+        // Function to update statistics
+        function updateStats() {
+            const progress = loadProgress();
+            
+            // Total problems
+            const totalAll = allProblems.length;
+            const totalCompleted = Object.values(progress).filter(Boolean).length;
+            const totalProgress = totalAll > 0 ? Math.round((totalCompleted / totalAll) * 100) : 0;
+            
+            document.getElementById('total-problems').textContent = totalAll;
+            document.getElementById('total-completed').textContent = totalCompleted;
+            document.getElementById('total-all').textContent = totalAll;
+            document.getElementById('total-progress').style.width = `${totalProgress}%`;
+            
+            // Array problems
+            const arrayProblems = allProblems.filter(p => p.topic === 'array');
+            const arrayAll = arrayProblems.length;
+            const arrayCompleted = arrayProblems.filter(p => progress[p.id]).length;
+            const arrayProgress = arrayAll > 0 ? Math.round((arrayCompleted / arrayAll) * 100) : 0;
+            
+            document.getElementById('array-problems').textContent = arrayAll;
+            document.getElementById('array-completed').textContent = arrayCompleted;
+            document.getElementById('array-all').textContent = arrayAll;
+            document.getElementById('array-progress').style.width = `${arrayProgress}%`;
+            
+            // String problems
+            const stringProblems = allProblems.filter(p => p.topic === 'string');
+            const stringAll = stringProblems.length;
+            const stringCompleted = stringProblems.filter(p => progress[p.id]).length;
+            const stringProgress = stringAll > 0 ? Math.round((stringCompleted / stringAll) * 100) : 0;
+            
+            document.getElementById('string-problems').textContent = stringAll;
+            document.getElementById('string-completed').textContent = stringCompleted;
+            document.getElementById('string-all').textContent = stringAll;
+            document.getElementById('string-progress').style.width = `${stringProgress}%`;
+            
+            // High priority problems
+            const highPriorityProblems = allProblems.filter(p => getPriorityLevel(p) === 'high');
+            const highPriorityAll = highPriorityProblems.length;
+            const highPriorityCompleted = highPriorityProblems.filter(p => progress[p.id]).length;
+            const highPriorityProgress = highPriorityAll > 0 ? Math.round((highPriorityCompleted / highPriorityAll) * 100) : 0;
+            
+            document.getElementById('high-priority-problems').textContent = highPriorityAll;
+            document.getElementById('high-priority-completed').textContent = highPriorityCompleted;
+            document.getElementById('high-priority-all').textContent = highPriorityAll;
+            document.getElementById('high-priority-progress').style.width = `${highPriorityProgress}%`;
+        }
+
+        // Function to reset filters
+        function resetFilters() {
+            document.getElementById('search').value = '';
+            document.getElementById('difficulty-filter').value = '';
+            document.getElementById('topic-filter').value = '';
+            document.getElementById('source-filter').value = '';
+            document.getElementById('priority-filter-select').value = '';
+            document.getElementById('completion-filter').value = '';
+            filterProblems();
+        }
+
+        // Initialize
+        window.onload = function() {
+            // Render all problems initially
+            renderProblems(allProblems, 'all-problems');
+            
+            // Update stats
+            updateStats();
+            
+            // Add event listeners for filters
+            document.getElementById('search').addEventListener('input', filterProblems);
+            document.getElementById('difficulty-filter').addEventListener('change', filterProblems);
+            document.getElementById('topic-filter').addEventListener('change', filterProblems);
+            document.getElementById('source-filter').addEventListener('change', filterProblems);
+            document.getElementById('priority-filter-select').addEventListener('change', filterProblems);
+            document.getElementById('completion-filter').addEventListener('change', filterProblems);
+        };
+
+        // Make functions globally available
+        window.toggleSolution = toggleSolution;
+        window.showTab = showTab;
+        window.toggleProblemCompletion = toggleProblemCompletion;
+        window.resetFilters = resetFilters;
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- V1:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Array & String Problems Hub</title>
+    <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -2870,4 +5758,4 @@ def groupAnagrams(strs):
         window.showTab = showTab;
     </script>
 </body>
-</html>
+</html> -->
